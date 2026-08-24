@@ -1,3 +1,5 @@
+import { Box, Card, Stack, Typography } from '@mui/material';
+
 import { StatCard } from '~/components/dashboard/StatCard';
 
 const stats = [
@@ -23,135 +25,99 @@ const sales = [
 
 export function DashboardOverview() {
   return (
-    <>
-      <section style={{ marginBottom: 24 }}>
-        <p
-          style={{
-            margin: 0,
-            fontSize: 12,
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
-            color: '#6b7280',
-          }}
-        >
+    <Stack spacing={3}>
+      <Box>
+        <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: 1.5 }}>
           Overview
-        </p>
-        <h1 style={{ margin: '8px 0 0', fontSize: 36 }}>Dashboard</h1>
-      </section>
+        </Typography>
+        <Typography variant="h1">Dashboard</Typography>
+      </Box>
 
-      <section
-        style={{
+      <Box
+        sx={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: 16,
-          marginBottom: 24,
+          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, minmax(0, 1fr))', md: 'repeat(4, minmax(0, 1fr))' },
+          gap: 2,
         }}
       >
         {stats.map((stat) => (
-          <StatCard key={stat.label} {...stat} />
+          <Box key={stat.label}>
+            <StatCard {...stat} />
+          </Box>
         ))}
-      </section>
+      </Box>
 
-      <section
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1.2fr) minmax(280px, 0.8fr)',
-          gap: 16,
-        }}
-      >
-        <div
-          style={{
-            background: '#ffffff',
-            border: '1px solid #e5e7eb',
-            borderRadius: 16,
-            padding: 20,
-            boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
-          }}
-        >
-          <h2 style={{ margin: '0 0 18px', fontSize: 20 }}>Traffic by channel</h2>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1.5fr 1fr' }, gap: 2 }}>
+        <Card sx={{ p: 2.5 }}>
+          <Typography variant="h2" sx={{ mb: 2 }}>
+            Traffic by channel
+          </Typography>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <Stack spacing={2}>
             {channels.map((channel) => (
-              <div key={channel.name}>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginBottom: 8,
-                    fontSize: 14,
-                    color: '#374151',
-                  }}
-                >
-                  <span>{channel.name}</span>
-                  <span>{channel.value}%</span>
-                </div>
-                <div
-                  style={{
+              <Box key={channel.name}>
+                <Stack direction="row" sx={{ justifyContent: 'space-between', mb: 1 }}>
+                  <Typography variant="body2">{channel.name}</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {channel.value}%
+                  </Typography>
+                </Stack>
+                <Box
+                  sx={{
                     height: 10,
-                    width: '100%',
-                    background: '#e5e7eb',
                     borderRadius: 999,
+                    backgroundColor: 'grey.200',
                     overflow: 'hidden',
                   }}
                 >
-                  <div
-                    style={{
-                      width: `${channel.value}%`,
+                  <Box
+                    sx={{
                       height: '100%',
-                      borderRadius: 999,
+                      width: `${channel.value}%`,
                       background: channel.color,
+                      borderRadius: 999,
                     }}
                   />
-                </div>
-              </div>
+                </Box>
+              </Box>
             ))}
-          </div>
-        </div>
+          </Stack>
+        </Card>
 
-        <div
-          style={{
-            background: '#ffffff',
-            border: '1px solid #e5e7eb',
-            borderRadius: 16,
-            padding: 20,
-            boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
-          }}
-        >
-          <h2 style={{ margin: '0 0 18px', fontSize: 20 }}>Regional performance</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <Card sx={{ p: 2.5 }}>
+          <Typography variant="h2" sx={{ mb: 2 }}>
+            Regional performance
+          </Typography>
+          <Stack spacing={2}>
             {sales.map((sale) => (
-              <div
-                key={sale.region}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '12px 0',
-                  borderBottom: '1px solid #f3f4f6',
-                }}
-              >
-                <div>
-                  <div style={{ fontWeight: 600 }}>{sale.region}</div>
-                  <div style={{ color: '#6b7280', fontSize: 12 }}>{sale.revenue}</div>
-                </div>
-                <span
-                  style={{
-                    color: '#059669',
-                    background: '#ecfdf5',
+              <Stack key={sale.region} direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                <Box>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                    {sale.region}
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    {sale.revenue}
+                  </Typography>
+                </Box>
+                <Box
+                  component="span"
+                  sx={{
+                    backgroundColor: 'success.light',
+                    color: 'success.dark',
                     borderRadius: 999,
-                    padding: '6px 10px',
+                    px: 1.1,
+                    py: 0.5,
                     fontSize: 12,
                     fontWeight: 700,
                   }}
                 >
                   {sale.growth}
-                </span>
-              </div>
+                </Box>
+              </Stack>
             ))}
-          </div>
-        </div>
-      </section>
-    </>
+          </Stack>
+        </Card>
+      </Box>
+    </Stack>
   );
 }

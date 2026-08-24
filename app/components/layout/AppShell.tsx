@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { AppBar, Box, Container, Stack, Toolbar, Typography } from '@mui/material';
 
 type AppShellProps = {
   children: ReactNode;
@@ -6,24 +7,41 @@ type AppShellProps = {
 
 export function AppShell({ children }: AppShellProps) {
   return (
-    <div style={{ minHeight: '100vh', background: '#f3f4f6', color: '#111827' }}>
-      <header style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '1rem 1.5rem',
-        background: '#111827',
-        color: '#fff',
-      }}>
-        <div style={{ fontWeight: 700, fontSize: 20 }}>PulseBoard</div>
-        <nav style={{ display: 'flex', gap: 16, fontSize: 14 }}>
-          <span>Overview</span>
-          <span>Reports</span>
-          <span>Customers</span>
-          <span>Settings</span>
-        </nav>
-      </header>
-      <main style={{ padding: '1.5rem' }}>{children}</main>
-    </div>
+    <Box sx={{ minHeight: '100vh', backgroundColor: 'background.default', color: 'text.primary' }}>
+      <AppBar position="static" color="transparent">
+        <Toolbar sx={{ justifyContent: 'space-between', px: 3, py: 1.5 }}>
+          <Typography variant="h6" sx={{ fontWeight: 700, letterSpacing: 0.2 }}>
+            PulseBoard
+          </Typography>
+
+          <Stack direction="row" spacing={3} sx={{ color: 'text.secondary', fontSize: 14 }}>
+            <Box component="span">Overview</Box>
+            <Box component="span">Reports</Box>
+            <Box component="span">Customers</Box>
+            <Box component="span">Settings</Box>
+          </Stack>
+        </Toolbar>
+      </AppBar>
+
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Box component="main" sx={{ width: '100%' }}>
+          {children}
+        </Box>
+      </Container>
+
+      <Box
+        component="footer"
+        sx={{
+          textAlign: 'center',
+          py: 3,
+          color: 'text.secondary',
+          borderTop: '1px solid',
+          borderColor: 'divider',
+          backgroundColor: 'background.paper',
+        }}
+      >
+        © 2026 PulseBoard • Insights for every team
+      </Box>
+    </Box>
   );
 }

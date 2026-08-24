@@ -1,7 +1,12 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from '@remix-run/node';
+import { Box, Typography } from '@mui/material';
 
-export const meta: MetaFunction = () => [{ title: "First Page" }];
+export const meta: MetaFunction = () => [{ title: 'First Page' }];
 
 export default function First() {
-  return <div style={{ padding: 20 }}>hello world</div>;
+  return (
+    <Box sx={{ p: 3 }}>
+      <Typography variant="body1">hello world</Typography>
+    </Box>
+  );
 }
