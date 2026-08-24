@@ -1,3 +1,5 @@
+import { Card, Stack, Typography } from '@mui/material';
+
 type StatCardProps = {
   label: string;
   value: string;
@@ -6,23 +8,25 @@ type StatCardProps = {
 };
 
 export function StatCard({ label, value, change, tone = 'positive' }: StatCardProps) {
-  const toneClass = {
-    positive: '#10b981',
-    neutral: '#3b82f6',
-    warning: '#f59e0b',
+  const toneColor = {
+    positive: 'success.main',
+    neutral: 'primary.main',
+    warning: 'warning.main',
   }[tone];
 
   return (
-    <div style={{
-      background: '#fff',
-      border: '1px solid #e5e7eb',
-      borderRadius: 12,
-      padding: '1rem 1.25rem',
-      boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
-    }}>
-      <div style={{ color: '#6b7280', fontSize: 14 }}>{label}</div>
-      <div style={{ fontSize: 28, fontWeight: 700, margin: '0.5rem 0' }}>{value}</div>
-      <div style={{ color: toneClass, fontSize: 13, fontWeight: 600 }}>{change}</div>
-    </div>
+    <Card sx={{ p: 2.5, height: '100%' }}>
+      <Stack spacing={1}>
+        <Typography variant="body2" color="text.secondary">
+          {label}
+        </Typography>
+        <Typography variant="h3" sx={{ fontWeight: 700 }}>
+          {value}
+        </Typography>
+        <Typography variant="caption" sx={{ color: toneColor, fontWeight: 700 }}>
+          {change}
+        </Typography>
+      </Stack>
+    </Card>
   );
 }

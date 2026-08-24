@@ -1,3 +1,5 @@
+import { Box, Stack, Typography } from '@mui/material';
+
 import { AppShell } from '~/components/layout/AppShell';
 import { StatCard } from '~/components/dashboard/StatCard';
 
@@ -11,24 +13,28 @@ const stats = [
 export default function Index() {
   return (
     <AppShell>
-      <section style={{ marginBottom: 24 }}>
-        <h1 style={{ margin: 0, fontSize: 36 }}>Analytics Dashboard</h1>
-        <p style={{ margin: '8px 0 0', color: '#6b7280' }}>
-          Track performance, engagement, and key business metrics.
-        </p>
-      </section>
+      <Stack spacing={3}>
+        <Box>
+          <Typography variant="h1">Analytics Dashboard</Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mt: 1 }}>
+            Track performance, engagement, and key business metrics.
+          </Typography>
+        </Box>
 
-      <section
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: 16,
-        }}
-      >
-        {stats.map((stat) => (
-          <StatCard key={stat.label} {...stat} />
-        ))}
-      </section>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, minmax(0, 1fr))', md: 'repeat(4, minmax(0, 1fr))' },
+            gap: 2,
+          }}
+        >
+          {stats.map((stat) => (
+            <Box key={stat.label}>
+              <StatCard {...stat} />
+            </Box>
+          ))}
+        </Box>
+      </Stack>
     </AppShell>
   );
 }

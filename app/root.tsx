@@ -1,4 +1,4 @@
-import type { LinksFunction, MetaFunction } from '@remix-run/node';
+import type { MetaFunction } from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -7,10 +7,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import appStylesHref from './styles/app.css?url';
-
-export const links: LinksFunction = () => [{ rel: 'stylesheet', href: appStylesHref }];
+import { appTheme } from './theme';
 
 export const meta: MetaFunction = () => [{ title: 'Analytics Dashboard' }];
 
@@ -24,7 +23,10 @@ export default function Root() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <ThemeProvider theme={appTheme}>
+          <CssBaseline />
+          <Outlet />
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
