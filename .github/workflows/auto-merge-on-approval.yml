@@ -1,0 +1,28 @@
+name: Auto-merge when PR approved
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    # Only run when an approval was submitted for a PR that targets `main` from `dev`.
+    if: >
+      github.event.review.state == 'approved' &&
+      github.event.pull_request.base.ref == 'main' &&
+      github.event.pull_request.head.ref == 'dev'
+
+    steps:
+      - name: Merge pull request
+        uses: peter-evans/merge-pull-request@v3
+        with:
+          pull-request-number: ${{ github.event.pull_request.number }}
+          merge-method: merge
+          commit-title: "Auto-merged dev → main after approval"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
