@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -e
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [[ -z "$remote_ref" ]]; then
+    continue
+  fi
+
+  if [[ "$remote_ref" != "refs/heads/dev" ]]; then
+    echo "Blocked: only pushes to dev are allowed. Refused: $remote_ref"
+    exit 1
+  fi
+done
+
+exit 0

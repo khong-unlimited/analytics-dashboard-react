@@ -1,6 +1,7 @@
-import type { LinksFunction } from '@remix-run/node';
+import type { LinksFunction, MetaFunction } from '@remix-run/node';
 import {
   Links,
+  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -11,7 +12,9 @@ import appStylesHref from './styles/app.css?url';
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: appStylesHref }];
 
-export default function App() {
+export const meta: MetaFunction = () => [{ title: 'Analytics Dashboard' }];
+
+export default function Root() {
   return (
     <html lang="en">
       <head>
@@ -24,6 +27,7 @@ export default function App() {
         <Outlet />
         <ScrollRestoration />
         <Scripts />
+        <LiveReload />
       </body>
     </html>
   );
